@@ -10,7 +10,7 @@ class TestHomeView(TestCase):
         self.url = reverse("tweets:home")
         self.user = User.objects.create_user(username="testuser", password="testpassword")
         self.client.login(username="testuser", password="testpassword")
-        
+
     def test_success_get(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
