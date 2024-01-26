@@ -227,7 +227,7 @@ class TestLoginView(TestCase):
         self.assertNotIn(SESSION_KEY, self.client.session)
         self.assertIn(
             "正しいユーザー名とパスワードを入力してください。どちらのフィールドも大文字と小文字は区別されます。",
-            form.errors["__all__"]
+            form.errors["__all__"],
         )
 
     def test_failure_post_with_empty_password(self):
