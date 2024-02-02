@@ -8,13 +8,12 @@ from .models import Tweet
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = "tweets/home.html"
     model = Tweet
-    context_object_name = 'tweets'
+    context_object_name = "tweets"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['tweets'] = Tweet.objects.all()
+        context["tweets"] = Tweet.objects.all()
         return context
-
 
 
 class TweetCreateView(LoginRequiredMixin, CreateView):
