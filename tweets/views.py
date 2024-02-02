@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, DetailView, TemplateView
 
 from .models import Tweet
 
@@ -25,3 +25,8 @@ class TweetCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class TweetDetailView(LoginRequiredMixin, DetailView):
+    template_name = "tweets/detail.html"
+    model = Tweet
