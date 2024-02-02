@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Homeです</h1>
 <ul>
-    {% for tweet in object_list %}
+    {% for tweet in tweets %}
     <li>
         {{tweet.user}} :「 {{tweet.content}} 」
     </li>
