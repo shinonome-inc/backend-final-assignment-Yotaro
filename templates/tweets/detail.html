@@ -3,7 +3,8 @@
 {% block title %}Tweet detail{% endblock %}
 
 {% block content %}
-<h2>{{ tweet.user }}</h2>
+<p>{{ tweet.user }}</p>
 <p>{{ tweet.content }}</p>
 <p>{{ tweet.created_at }}</p>
+<a href="{% url 'tweets:delete' pk=tweet.id %}">削除</a>
 {% endblock %}

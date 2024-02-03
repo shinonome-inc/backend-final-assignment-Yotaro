@@ -8,7 +8,7 @@
     {% for tweet in tweets %}
     <li>
         {{ tweet.user }} :「 {{ tweet.content }} 」
-        <button><a href="{% url 'tweets:detail' tweet.id %}">詳細</a></button>
+        <button><a href="{% url 'tweets:detail' pk=tweet.id %}">詳細</a></button>
     </li>
     {% endfor %}
 </ul>
