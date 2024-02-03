@@ -1,9 +1,5 @@
-from django.forms import ModelForm
+from django.contrib import admin
 
 from .models import Tweet
 
-
-class CreateTweetForm(ModelForm):
-    class Meta:
-        model = Tweet
-        fields = ["content"]
+admin.site.register(Tweet)
