@@ -4,6 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView
 
+from tweets.models import Tweet
+
 from .forms import SignupForm
 
 
@@ -23,3 +25,9 @@ class SignupView(CreateView):
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = "accounts/profile.html"
+    context_object_name = "tweets"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["tweets"] = Tweet.objects.all()
+        return context
