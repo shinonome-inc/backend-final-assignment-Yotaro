@@ -42,4 +42,4 @@ class TweetDeleteView(UserPassesTestMixin, DeleteView):
         return object.user == self.request.user
 
     def get_queryset(self):
-        return super().get_queryset().select_related('user')
+        return super().get_queryset().select_related("user")
