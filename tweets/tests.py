@@ -63,7 +63,7 @@ class TestTweetCreateView(TestCase):
         self.assertFalse(Tweet.objects.filter(content=invalid_data["content"]).exists())
         self.assertIn(
             f"この値は 280 文字以下でなければなりません( {len(invalid_data['content'])} 文字になっています)。",
-            form.errors["content"]
+            form.errors["content"],
         )
 
 
