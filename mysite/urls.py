@@ -16,6 +16,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from django.conf import settings
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -23,3 +24,11 @@ urlpatterns = [
     path("tweets/", include("tweets.urls")),
     path("", include("welcome.urls")),
 ]
+
+# django-debug-toolbarの設定
+if settings.SQL_DEBUG:
+    import debug_toolbar
+
+    urlpatterns += [
+        path("__debug__/", include(debug_toolbar.urls)),
+    ]
