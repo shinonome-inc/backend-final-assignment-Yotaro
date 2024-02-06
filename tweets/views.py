@@ -1,6 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, TemplateView
+
+from accounts.models import User
 
 from .models import Tweet
 
@@ -30,6 +33,13 @@ class TweetCreateView(LoginRequiredMixin, CreateView):
 class TweetDetailView(LoginRequiredMixin, DetailView):
     template_name = "tweets/detail.html"
     model = Tweet
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tweet = self.get_object()
+        profile_user = get_object_or_404(User, username=tweet.user.username)
+        context["profile_user"] = profile_user
+        return context
 
 
 class TweetDeleteView(UserPassesTestMixin, DeleteView):

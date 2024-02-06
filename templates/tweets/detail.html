@@ -3,10 +3,13 @@
 {% block title %}Tweet detail{% endblock %}
 
 {% block content %}
-<p>{{ tweet.user }}</p>
+<p>{{ tweet.user }}
+    <button><a href="{% url 'accounts:user_profile' profile_user %}">この人のプロフィール</a></button>
+</p>
 <p>{{ tweet.content }}</p>
 <p>{{ tweet.created_at }}</p>
 {% if user == tweets.user %}
 <a href="{% url 'tweets:delete' pk=tweet.id %}">削除</a>
 {% endif %}
+<a href="{% url 'tweets:home' %}">Homeに戻る</a>
 {% endblock %}
