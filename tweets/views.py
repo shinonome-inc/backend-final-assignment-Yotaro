@@ -36,8 +36,7 @@ class TweetDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        tweet = self.get_object()
-        profile_user = get_object_or_404(User, username=tweet.user.username)
+        profile_user = self.object.user
         context["profile_user"] = profile_user
         return context
 
