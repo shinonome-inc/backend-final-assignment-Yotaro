@@ -20,7 +20,7 @@ class TestHomeView(TestCase):
         tweets_db = Tweet.objects.all()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "tweets/home.html")
-        self.assertQuerysetEqual(response.context["tweets"], tweets_db)
+        self.assertQuerysetEqual(response.context["object_list"], tweets_db)
 
 
 class TestTweetCreateView(TestCase):

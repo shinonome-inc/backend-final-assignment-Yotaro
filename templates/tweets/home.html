@@ -5,7 +5,7 @@
 {% block content %}
 <h1>Homeです</h1>
 <ul>
-    {% for tweet in tweets %}
+    {% for tweet in object_list %}
     <li>
         {{ tweet.user }} :「 {{ tweet.content }} 」
         <button><a href="{% url 'tweets:detail' pk=tweet.id %}">詳細</a></button>
