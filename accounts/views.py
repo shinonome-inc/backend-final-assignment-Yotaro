@@ -27,7 +27,6 @@ class SignupView(CreateView):
 
 class UserProfileView(LoginRequiredMixin, TemplateView):
     template_name = "accounts/profile.html"
-    context_object_name = "tweets"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
