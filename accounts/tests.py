@@ -271,7 +271,7 @@ class TestUserProfileView(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "accounts/profile.html")
-        self.assertQuerysetEqual(response.context["tweets"], tweets_db)
+        self.assertQuerysetEqual(response.context["object_list"], tweets_db)
 
 
 # class TestUserProfileEditView(TestCase):
