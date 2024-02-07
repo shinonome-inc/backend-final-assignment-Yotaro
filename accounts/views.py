@@ -27,8 +27,16 @@ class SignupView(CreateView):
 
 class UserProfileView(LoginRequiredMixin, ListView):
     template_name = "accounts/profile.html"
+    model = Tweet
 
     def get_queryset(self):
         username = self.kwargs.get("username")
         profile_user = get_object_or_404(User, username=username)
         return Tweet.objects.filter(user=profile_user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        username = self.kwargs.get("username")
+        profile_user = get_object_or_404(User, username=username)
+        context["profile_user"] = profile_user
+        return context

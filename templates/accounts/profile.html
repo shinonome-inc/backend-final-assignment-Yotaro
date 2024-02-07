@@ -1,11 +1,10 @@
 {% extends "base.html" %}
-
 {% block title %}User Profile{% endblock %}
 
 {% block content %}
 <p>{{ profile_user }}</p>
 <ul>
-    {% for tweet in tweets %}
+    {% for tweet in object_list %}
     <li>
         「{{ tweet.content }}」
         <button><a href="{% url 'tweets:detail' pk=tweet.id %}">詳細</a></button>
@@ -14,6 +13,4 @@
 </ul>
 
 <a href="{% url 'tweets:home' %}">Homeに戻る</a>
-
-
 {% endblock %}
