@@ -8,8 +8,8 @@
 </p>
 <p>{{ tweet.content }}</p>
 <p>{{ tweet.created_at }}</p>
-{% if user == tweets.user %}
-<a href="{% url 'tweets:delete' pk=tweet.id %}">削除</a>
+{% if user == tweet.user %}
+<p><a href="{% url 'tweets:delete' pk=tweet.id %}">削除</a></p>
 {% endif %}
 <a href="{% url 'tweets:home' %}">Homeに戻る</a>
 {% endblock %}
