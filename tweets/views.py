@@ -30,8 +30,7 @@ class TweetDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        profile_user = self.object.user
-        context["profile_user"] = profile_user
+        context["profile_user"] = self.object.user
         return context
 
 
