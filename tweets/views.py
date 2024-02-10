@@ -39,10 +39,8 @@ class TweetDeleteView(UserPassesTestMixin, DeleteView):
     template_name = "tweets/delete.html"
     success_url = reverse_lazy("tweets:home")
     model = Tweet
+    queryset = Tweet.objects.select_related("user").all()
 
     def test_func(self):
-        object = self.get_object()
-        return object.user == self.request.user
-
-    def get_queryset(self):
-        return super().get_queryset().select_related("user")
+        obj = self.get_object()
+        return obj.user == self.request.user
