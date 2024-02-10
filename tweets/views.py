@@ -8,9 +8,7 @@ from .models import Tweet
 class HomeView(LoginRequiredMixin, ListView):
     template_name = "tweets/home.html"
     model = Tweet
-
-    def get_queryset(self):
-        return Tweet.objects.select_related("user").all()
+    queryset = Tweet.objects.select_related("user").all()
 
 
 class TweetCreateView(LoginRequiredMixin, CreateView):
