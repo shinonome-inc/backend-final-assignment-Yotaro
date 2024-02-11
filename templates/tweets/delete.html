@@ -5,7 +5,7 @@
 {% block content %}
 <form method="post">
     {% csrf_token %}
-    <p>データ "{{ object }}" を本当に削除しますか?</p>
+    <p>データ "{{ tweet }}" を本当に削除しますか?</p>
     <input type="submit" value="確定">
 </form>
 {% endblock %}
