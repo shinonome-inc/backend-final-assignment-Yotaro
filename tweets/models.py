@@ -9,6 +9,7 @@ class Tweet(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "ツイート"
         verbose_name_plural = "ツイート"
 
     def __str__(self):
