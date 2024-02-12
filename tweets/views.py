@@ -29,7 +29,6 @@ class TweetDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["profile_user"] = self.object.user
-        context["tweet"] = self.object
         return context
 
 
