@@ -4,4 +4,12 @@
 
 {% block content %}
 <h1>Homeです</h1>
+<ul>
+    {% for tweet in tweet_list %}
+    <li>
+        {{ tweet.user }} :「 {{ tweet.content }} 」
+        <button><a href="{% url 'tweets:detail' pk=tweet.id %}">詳細</a></button>
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
