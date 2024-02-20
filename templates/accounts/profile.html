@@ -3,6 +3,28 @@
 
 {% block content %}
 <p>{{ profile_user }}</p>
+<!-- フォロー数表示機能 -->
+<p>フォロー数
+    {{following}}
+</p>
+<p>フォロワー数
+    {{follower}}
+</p>
+<!-- フォロー・アンフォロー機能 -->
+{% if request.user != profile_user %}
+{% if is_following %}
+<form method="post" action="{% url 'accounts:unfollow' profile_user %}">
+    {% csrf_token %}
+    <button type="submit">Unfollow</button>
+</form>
+{% else %}
+<form method="post" action="{% url 'accounts:follow' profile_user %}">
+    {% csrf_token %}
+    <button type="submit">{{profile_user}}さんをフォローする</button>
+</form>
+{% endif %}
+{% endif %}
+
 <ul>
     {% for tweet in tweet_list %}
     <li>
