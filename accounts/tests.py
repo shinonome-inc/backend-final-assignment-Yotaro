@@ -354,9 +354,27 @@ class TestUnfollowView(TestCase):
         self.assertTrue(Connection.objects.filter(follower=self.user).exists())
 
 
-# class TestFollowingListView(TestCase):
-#     def test_success_get(self):
+class TestFollowingListView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="testuser", password="testpassword")
+        self.following = User.objects.create_user(username="testfollowing", password="followingpassword")
+        self.client.login(username="testuser", password="testpassword")
+        self.url = reverse("accounts:following_list", kwargs={"username": self.user})
+        Connection.objects.create(follower=self.user, following=self.following)
+
+    def test_success_get(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
 
 
-# class TestFollowerListView(TestCase):
-#     def test_success_get(self):
+class TestFollowerListView(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username="testuser", password="testpassword")
+        self.following = User.objects.create_user(username="testfollowing", password="followingpassword")
+        self.client.login(username="testuser", password="testpassword")
+        self.url = reverse("accounts:following_list", kwargs={"username": self.user})
+        Connection.objects.create(follower=self.user, following=self.following)
+
+    def test_success_get(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
