@@ -42,6 +42,7 @@ class UserProfileView(LoginRequiredMixin, ListView):
         context["profile_user"] = self.profile_user
         context["following"] = Connection.objects.filter(follower__username=self.profile_user).count()
         context["follower"] = Connection.objects.filter(following__username=self.profile_user).count()
+        context["following_user"] = Connection.objects.filter(following=self.request.user).select_related("follower")
         return context
 
 
@@ -71,3 +72,25 @@ class UnFollowView(LoginRequiredMixin, View):
             Connection.objects.filter(follower=request.user, following=following).delete()
 
         return redirect("tweets:home")
+
+
+class FollowingListView(LoginRequiredMixin, ListView):
+    template_name = "accounts/following_list.html"
+    model = User
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(User, username=self.kwargs["username"])
+        context["following_list"] = Connection.objects.filter(follower=user).select_related("following")
+        return context
+
+
+class FollowerListView(LoginRequiredMixin, ListView):
+    template_name = "accounts/follower_list.html"
+    model = User
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = get_object_or_404(User, username=self.kwargs["username"])
+        context["follower_list"] = Connection.objects.filter(following=user).select_related("follower")
+        return context
