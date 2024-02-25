@@ -5,7 +5,7 @@
 <p>{{ profile_user }}</p>
 <!-- フォロー・アンフォロー機能 -->
 {% if request.user != profile_user %}
-{% if profile_user in following_user %}
+{% if profile_user.username in following_usernames %}
 <form method="post" action="{% url 'accounts:unfollow' profile_user %}">
     {% csrf_token %}
     <button type="submit">フォロー解除</button>

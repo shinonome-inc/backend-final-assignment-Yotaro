@@ -42,7 +42,11 @@ class UserProfileView(LoginRequiredMixin, ListView):
         context["profile_user"] = self.profile_user
         context["following"] = Connection.objects.filter(follower__username=self.profile_user).count()
         context["follower"] = Connection.objects.filter(following__username=self.profile_user).count()
-        context["following_user"] = Connection.objects.filter(following=self.request.user).select_related("follower")
+        following_usernames = [
+            connection.following.username
+            for connection in Connection.objects.filter(follower=self.request.user).select_related("following")
+        ]
+        context["following_usernames"] = following_usernames
         return context
 
 
@@ -81,7 +85,9 @@ class FollowingListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=self.kwargs["username"])
-        context["following_list"] = Connection.objects.filter(follower=user).select_related("following")
+        context["following_list"] = (
+            Connection.objects.filter(follower=user).select_related("following").order_by("-date_created")
+        )
         return context
 
 
@@ -92,5 +98,7 @@ class FollowerListView(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = get_object_or_404(User, username=self.kwargs["username"])
-        context["follower_list"] = Connection.objects.filter(following=user).select_related("follower")
+        context["follower_list"] = (
+            Connection.objects.filter(following=user).select_related("follower").order_by("-date_created")
+        )
         return context
