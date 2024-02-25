@@ -13,3 +13,6 @@ class Connection(models.Model):
 
     def __str__(self):
         return "{} : {}".format(self.follower.username, self.following.username)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=["follower", "following"], name="unique_connection")]
